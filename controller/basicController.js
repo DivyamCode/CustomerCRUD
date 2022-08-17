@@ -6,18 +6,18 @@
 const con = require('../db/connect');
 const validator = require('validator');
 exports.registerCustomer = async(req,res,next)=>{
-    const {name,email,phoneNo} = req.body;
-    if(validator.isEmail(email)&&validator.isMobilePhone(phoneNo)){
-        var sql = `INSERT INTO user (name, phoneNo,email) VALUES ('${name}', '${phoneNo}','${email}')`;
+    const {name,email,phone} = req.body;
+    if(validator.isEmail(email)&&validator.isMobilePhone(phone)){
+        var sql = `INSERT INTO user (name, phone,email) VALUES ('${name}', '${phone}','${email}')`;
         con.query(sql, function (err, result) {
         if (err) throw err;
         });
         res.status(201).json({
             success:true,
-            name,email,phoneNo
+            name,email,phone
         })
     }
-    if(!(validator.isEmail(email)&&validator.isMobilePhone(phoneNo))){
+    if(!(validator.isEmail(email)&&validator.isMobilePhone(phone))){
         res.status(400).json({
             success:false
         })
